@@ -9,10 +9,10 @@ import xml.etree.ElementTree as ET
 class SentinelSLC:
     def __init__(self, process_path, result_root):
         self.result_root = result_root
-        self.home_dir = os.path.expanduser("~")  # docker must be processed by user tq
+        self.home_dir = "/home/tq"  # docker must be processed by user tq
 
         self.process_file = os.path.join(
-            os.path.expanduser("~"), process_path
+            self.home_dir, process_path
         )  # /home/tq/tq-data0*/sentinel1/*/*.zip
 
         self.local_path = os.path.join(
@@ -41,7 +41,7 @@ class SentinelSLC:
         for tmp_server in self.server_list:
             tmp_path = os.path.join(self.home_dir, tmp_server, self.reult_file_suffix)
             if os.path.exists(tmp_path):
-                return os.path.split(tmp_path), True
+                return os.path.split(tmp_path)[0], True
             else:
                 continue
         return None, False
@@ -126,11 +126,13 @@ class SentinelSLC:
         if process_flag.returncode == 0:
             print("Raw data process sucess.", self.process_file)
             result_path = os.path.join(
-                self.home_dir, self.result_root, self.reult_file_suffix
+                self.home_dir,
+                self.result_root,
+                os.path.split(self.reult_file_suffix)[0],
             )
             try:
                 shutil.move(self.local_path, result_path)
-                shutil.rmtree(self.local_path)
+                # shutil.rmtree(self.local_path)
                 return result_path, True
             except Exception as e:
                 print(e)
