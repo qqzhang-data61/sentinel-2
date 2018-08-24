@@ -100,8 +100,10 @@ class SentinelSLC:
         for child in root.iter(tag="file"):  # set new xml for process
             if child.text == "process_file":
                 child.text = self.process_file
+                continue
             elif child.text == "result_file":
                 child.text = process_result_path
+                continue
             else:
                 print("please check the process xml!")
                 return None, False

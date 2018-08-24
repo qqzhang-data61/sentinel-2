@@ -34,7 +34,7 @@ class SentinelSLC:
             .replace(".zip", "_part2.dim"),
         )  # sentinel1_GRD/*/*._part2.dim
 
-        self.result_file_part2 = os.path.join(
+        self.result_file_part3 = os.path.join(
             "sentinel1_GRD",
             process_path.split("/sentinel1/")[-1]
             .replace("SLC", "GRDH")
@@ -54,7 +54,7 @@ class SentinelSLC:
         """
         # check the result
         for tmp_server in self.server_list:
-            tmp_path = os.path.join(self.home_dir, tmp_server, self.result_file_suffix)
+            tmp_path = os.path.join(self.home_dir, tmp_server, self.result_file_part3)
             if os.path.exists(tmp_path):
                 return os.path.split(tmp_path)[0], True
             else:
@@ -111,11 +111,11 @@ class SentinelSLC:
             self.local_path, os.path.split(self.result_file_part1)[-1]
         )  # set result path
 
-        base_xml = os.path.join(
+        base_part1_xml = os.path.join(
             self.SLC_aux_dir, "SLC_to_GRD_part1.xml"
         )  # get base xml
 
-        tree = ET.ElementTree(file=base_xml)
+        tree = ET.ElementTree(file=base_part1_xml)
         root = tree.getroot()
         for child in root.iter(tag="file"):  # set new xml for process
             if child.text == "process_file":
@@ -125,7 +125,7 @@ class SentinelSLC:
                 child.text = part1_result_path
                 continue
             else:
-                print("please check the process xml!")
+                print("please check the process part1 xml!")
                 return None, False
         try:
             tree.write(part1_xml)
@@ -137,11 +137,11 @@ class SentinelSLC:
             self.local_path, os.path.split(self.result_file_part2)[-1]
         )  # set result path
 
-        base_xml = os.path.join(
+        base_part2_xml = os.path.join(
             self.SLC_aux_dir, "SLC_to_GRD_part2.xml"
         )  # get base xml
 
-        tree = ET.ElementTree(file=base_xml)
+        tree = ET.ElementTree(file=base_part2_xml)
         root = tree.getroot()
         for child in root.iter(tag="file"):  # set new xml for process
             if child.text == "process_file":
@@ -151,7 +151,7 @@ class SentinelSLC:
                 child.text = part2_result_path
                 continue
             else:
-                print("please check the process xml!")
+                print("please check the process part2 xml!")
                 return None, False
         try:
             tree.write(part2_xml)
@@ -163,9 +163,11 @@ class SentinelSLC:
             self.local_path, os.path.split(self.result_file_part3)[-1]
         )  # set result path
 
-        base_xml = os.path.join(self.SLC_aux_dir, "GRD_Terrain.xml")  # get base xml
+        base_part3_xml = os.path.join(
+            self.SLC_aux_dir, "GRD_Terrain.xml"
+        )  # get base xml
 
-        tree = ET.ElementTree(file=base_xml)
+        tree = ET.ElementTree(file=base_part3_xml)
         root = tree.getroot()
         for child in root.iter(tag="file"):  # set new xml for process
             if child.text == "process_file":
@@ -175,7 +177,7 @@ class SentinelSLC:
                 child.text = part3_result_path
                 continue
             else:
-                print("please check the process xml!")
+                print("please check the process part3 xml!")
                 return None, False
         try:
             tree.write(part3_xml)
