@@ -10,7 +10,7 @@ from pathlib import Path
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), ".."))
 printer = pprint.PrettyPrinter(indent=3)
 
-file_name = "/home/tq/data_pool/Ray_EX/palm/201612_new_palm/palm_palm.json"
+file_name = "/home/tq/data_pool/Ray_EX/palm/201612_2sigma_post_palm/palm_palm.json"
 
 with open(file_name, "r") as fp:
     process_dict = json.load(fp)

@@ -1,6 +1,6 @@
 # run docker
 
-sudo docker run --privileged -itd --name sentinel1_GRD -l sentinel1_final -v /home/tq/data_pool:/home/tq/data_pool -v /home/tq/data2:/home/tq/data2 -v /home/tq/tq-data01:/home/tq/tq-data01 -v /home/tq/tq-data02:/home/tq/tq-data02 -v /home/tq/tq-data03:/home/tq/tq-data03 -v /home/tq/tq-data04:/home/tq/tq-data04 -v /home/tq/tq-data05:/home/tq/tq-data05 -w /home/tq  0df765 /bin/bash
+sudo docker run --privileged -itd --name sentinel1_GRD -l sentinel1_final -v /home/tq/data_pool:/home/tq/data_pool -v /home/tq/tq-data01:/home/tq/tq-data01 -v /home/tq/tq-data02:/home/tq/tq-data02 -v /home/tq/tq-data03:/home/tq/tq-data03 -v /home/tq/tq-data04:/home/tq/tq-data04 -v /home/tq/tq-data05:/home/tq/tq-data05 -w /home/tq  0df765 /bin/bash
 
 # merge_tif and clip by shape
 mkdir -p /tmp/palm_test3_20180818 && sudo mv ~/tq-data01/sentinel_GRD/258/*/*palm*.tif /tmp/palm_test3_20180818
