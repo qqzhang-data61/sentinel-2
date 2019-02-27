@@ -2,8 +2,8 @@
 
 #####################
 #usage example:
-#./merge_tif.sh src_tif_dir dst_tif_dir dst_big_tif_name palm_or_cdl [PATCH_TIF]
-#./merge_tif.sh /tmp/palm-s1-2015  /home/tq/data_pool/Ray_EX/palm/2015 s1-2015-palm palm
+#./merge_dem.sh src_tif_dir dst_tif_dir dst_big_tif_name palm_or_cdl [PATCH_TIF]
+#./merge_dem.sh /tmp/palm-s1-2015  /home/tq/data_pool/Ray_EX/palm/2015 s1-2015-palm palm
 #####################
 set -e 
 SRC_DIR=$1
@@ -28,13 +28,13 @@ elif [[ $PALM_CDL = "cdl" ]]; then
     TR_SIZE='30 30'
 fi
 
-for f in $(ls $SRC_DIR/*.hgt.zip); do n=${f##*/} ; gdalwarp -t_srs wgs84.prj -r cubic -srcnodata -32768 -dstnodata -32768 -of GTiff -overwrite -multi $f $DST_DIR/$n-$TIME_SUFFIX.wgs84.tif ;  done
+for f in $(ls $SRC_DIR/*.img); do n=${f##*/} ; gdalwarp -t_srs wgs84.prj -r cubic -srcnodata -32768 -dstnodata -32768 -of GTiff -overwrite -multi $f $DST_DIR/$n-$TIME_SUFFIX.wgs84.tif ;  done
     
-for i in $(ls $DST_DIR/*-$TIME_SUFFIX.wgs84.tif); do gdalbuildvrt -vrtnodata "-32768" $i-vrt.vrt $i ; done
+for i in $(ls $DST_DIR/*-$TIME_SUFFIX.wgs84.tif); do gdalbuildvrt -vrtnodata "-32768" -r cubic $i-vrt.vrt $i ; done
 
-gdalbuildvrt -vrtnodata "-32768" -r nearest $DST_DIR/$DST_NAME.vrt $PATCH_TIF $(ls $DST_DIR/*-vrt.vrt)
+gdalbuildvrt -vrtnodata "-32768" -r cubic $DST_DIR/$DST_NAME.vrt $PATCH_TIF $(ls $DST_DIR/*-vrt.vrt)
 
-gdal_translate -tr $TR_SIZE -of GTiff $DST_DIR/$DST_NAME.vrt $DST_DIR/$DST_NAME.tif
+gdal_translate -tr $TR_SIZE -of GTiff -r cubic $DST_DIR/$DST_NAME.vrt $DST_DIR/$DST_NAME.tif
 rm -rf $DST_DIR/*-vrt.vrt
 rm -rf $DST_DIR/*-$TIME_SUFFIX.wgs84.tif
 

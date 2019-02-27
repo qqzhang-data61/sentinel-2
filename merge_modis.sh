@@ -31,14 +31,14 @@ fi
 for f in $(ls $SRC_DIR/*.hdf)
 do 
     n=${f##*/}
-    gdalwarp -t_srs wgs84.prj -r cubic \
+    gdalwarp -t_srs wgs84.prj  \
     -srcnodata -3000 -dstnodata -3000 \
     -of GTiff \
     -overwrite "HDF4_EOS:EOS_GRID:$f:MODIS_Grid_16DAY_250m_500m_VI:250m 16 days NDVI" \
     $DST_DIR/$n-$TIME_SUFFIX.wgs84.tif 
 done
     
-for i in $(ls $DST_DIR/*-$TIME_SUFFIX.wgs84.tif); do gdalbuildvrt -vrtnodata "-3000" -r cubic $i-vrt.vrt $i ; done
+for i in $(ls $DST_DIR/*-$TIME_SUFFIX.wgs84.tif); do gdalbuildvrt -vrtnodata "-3000"  $i-vrt.vrt $i ; done
 
 gdalbuildvrt -vrtnodata "-3000" -r cubic $DST_DIR/$DST_NAME.vrt $PATCH_TIF $(ls $DST_DIR/*-vrt.vrt)
 

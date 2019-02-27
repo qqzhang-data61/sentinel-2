@@ -2,15 +2,22 @@
 # import ogr
 import subprocess
 
-VH_inraster = "/home/tq/data_pool/Palm/MLY_data/Kalimantan/kalimantan_MLY/kalimantan_MLY_VH_201609.tif"
-VV_inraster = "/home/tq/data_pool/Palm/MLY_data/Kalimantan/kalimantan_MLY/kalimantan_MLY_VV_201609.tif"
-inshape = (
-    "/home/tq/data_pool/Palm/MLY_data/Kalimantan/kalimantan_MLY/kalimantan_MLY.shp"
+VH_inraster = (
+    "/home/tq/data_pool/Palm/MLY_data/sentinel_201709/VH_kalimantan_201709.tif"
+)
+VV_inraster = (
+    "/home/tq/data_pool/Palm/MLY_data/sentinel_201709/VV_kalimantan_201709.tif"
 )
 
+inshape = "/home/tq/data_pool/Palm/Palm_Shape/MLY_kalimantan/MLY_kalimantan.shp"
 
-VV_raster = "/home/tq/data_pool/Palm/MLY_data/Kalimantan/kalimantan_MLY/kalimantan_MLY_VV_201609_clip.tif"
-VH_raster = "/home/tq/data_pool/Palm/MLY_data/Kalimantan/kalimantan_MLY/kalimantan_MLY_VH_201609_clip.tif"
+
+VV_raster = (
+    "/home/tq/data_pool/Palm/MLY_data/sentinel_201709/MLY_VV_kalimantan_201709.tif"
+)
+VH_raster = (
+    "/home/tq/data_pool/Palm/MLY_data/sentinel_201709/MLY_VH_kalimantan_201709.tif"
+)
 
 
 IDN_flag = subprocess.run(
