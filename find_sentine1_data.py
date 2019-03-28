@@ -36,9 +36,10 @@ def save_result(result_file: str, data_list: list) -> str:
 
 if __name__ == "__main__":
 
-    base_name = "/home/tq/data2/citrus/sichuan_S1/orbit_list_2018.json"
-    orbit = [55, 157, 128]
+    base_name = "/home/tq/data_pool/X_tmp/sichuan/orbit_list_2018.json"
+    # orbit = [11, 84, 113]  # hunan
+    orbit = [55, 128, 157]  # sichuan
     for tmp in orbit:
         tmp_list = find_orbit_data("2018", tmp)
-        result_file = base_name.replace("orbit", "orbit_" + str(tmp) + "_")
+        result_file = base_name.replace("orbit", "orbit_20190308_" + str(tmp) + "_")
         save_result(result_file, tmp_list)

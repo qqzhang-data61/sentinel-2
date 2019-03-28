@@ -71,7 +71,7 @@ def create_shp_fromZip(json_path, res_name):
 
 if __name__ == "__main__":
     json_path = "/home/tq/data2/citrus/sichuan_S1/sichuan_S1.json"
-    res_name = "/home/tq/data2/citrus/sichuan_S1/sichuan_S1.shp"
+    res_name = "/home/tq/data2/citrus/sichuan_S1/sichuan_S1_20190301.shp"
     status = create_shp_fromZip(json_path, res_name)
     if status:
         print("create shape file success!")
